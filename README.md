@@ -3,12 +3,12 @@ This guide walks you through the end-to-end process of creating an Over-the-Air 
 
 ## Prerequisites
 
-* **Public Link Creation:** You must have a way to upload your .tar.zst file and create a public link. Options include a personal web server or Amazon S3.
-* **Admin Access:** You must know the admin username and password for your Raspberry Pi.
-* **Raspberry Pi Connect Account:** All devices must be linked to the same account. See this video for setup: [https://youtu.be/rvCaN1PSKY0](https://youtu.be/rvCaN1PSKY0)
+* **Public Link Creation:** You must have a way to upload your .tar.zst file and create a public link. Options include a personal web server or Amazon S3. Note: Dropbox and Google Drive will not work for this requirement because they use redirects that the OTA agent cannot follow.
+* **Admin Access:** You must know the admin username and password for your Raspberry Pi (set during the flashing process with Raspberry Pi Imager).
+* **Raspberry Pi Connect Account:** All devices must be linked to the same account. See this video for setup: [https://youtu.be/rvCaN1PSKY0](https://youtu.be/rvCaN1PSKY0). This works with both Lite and Desktop versions of Raspberry Pi OS.
 
 ## Phase 1: Creating the Artifact from Scratch
-This process turns your shell script into a compressed package that the Raspberry Pi Connect service can verify and deploy. Optional: You can skip steps 1 and 2 and download the pre-made file [aptupgrade.tar.zst](https://github.com/carolinedunn/RemoteOTA-RPiConnect/blob/main/aptupgrade.tar.zst)
+This process turns your shell script into a compressed package that the Raspberry Pi Connect service can verify and deploy. Optional: You can skip steps 1 and 2 and download the pre-made file [aptupgrade.tar.zst](https://github.com/carolinedunn/RemoteOTA-RPiConnect/blob/main/aptupgrade.tar.zst).
 
 ### Step 1: Prepare the Files
 On your primary computer (or the "admin" Pi), create a folder for this update. You need two files:
