@@ -13,19 +13,20 @@ This guide explains how to create a custom "Over-the-Air" (OTA) update artifact 
 ```bash
 #!/bin/sh
 export DEBIAN_FRONTEND=noninteractive
-LOG="/home/admin/ota_upgrade.log"
-echo "Update started: \$(date)" > "$LOG"
-apt-get update >> "$LOG" 2>&1
-if apt-get -y -o DPKG::Options::="--force-confnew" upgrade >> "$LOG" 2>&1; then
+apt update
+if apt -y -o DPKG::Options::="--force-confnew" upgrade > output.txt; then
     if [ -r /var/run/reboot-required ]; then
-        echo "Rebooting..." >> "$LOG"
-        exit 2
+        echo Rebooting to finish the upgrade
+        exit 2 # EXIT_REBOOT
     fi
-    exit 0
 else
-    echo "Failed." >> "$LOG"
-    exit 1
+    echo Upgrade failed:
+    echo
+    cat output.txt
+    exit 1 # EXIT_FAILURE
 fi
+echo Upgrade complete
+exit 0 # EXIT_SUCCESS
 ```
 
 2. **The Control File (aptupgrade.yaml):** This tells the system what the script is. Note: In version 1.3.9, keep payloads at the same indentation level as artefact. Optionally, you can download the aptupgradescript.yaml included in this repository.
