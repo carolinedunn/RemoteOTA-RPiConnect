@@ -55,17 +55,30 @@ curl -sL https://yourdomain.com/aptupgrade.tar.zst | sha256sum
 ```
 
 ## Phase 2: Setting Up the Pi
+1. Install the latest rpi-connect package and the new rpi-connect-ota package:
+
+For a Raspberry Pi with desktop:
 ```bash
 sudo apt update
 sudo apt install rpi-connect rpi-connect-ota
 rpi-connect ota on
 ```
+For a Raspberry Pi without a desktop (aka Lite):
+```bash
+sudo apt update
+sudo apt install rpi-connect-lite rpi-connect-ota
+rpi-connect ota on
+```
+2. Enter your admin password when you are prompted. This is the password you set up when you flashed your microSD card in Raspberry Pi Imager.
 
 ## Phase 3: Deploying to the Fleet
-1. Click **Deploy** next to your Pi in the dashboard.
-2. Select **Existing** and choose your Deployment artefact.
-3. Click **Deploy**.
-4. On the Pi you just deployed to, watch the background process in the terminal: `journalctl -t rpi-ota-connector -f`
+1. Go to your [Raspberry Pi Connect](https://connect.raspberrypi.com/devices) page
+2. Click **Deploy** next to your Pi in the dashboard.
+3. Select **Existing** and choose your Deployment artefact.
+4. Click **Deploy**.
+5. On the Pi you just deployed to, watch the background process in the terminal: `journalctl -t rpi-ota-connector -f`
    The dashboard will show "In Progress" and eventually "Succeeded" for each unit.
 
 **Repeat Phase 2 and 3 for each Pi in your fleet.**
+
+This tutorial is based on this post from [Raspberry Pi](https://www.raspberrypi.com/news/new-remote-updates-on-raspberry-pi-connect/).
