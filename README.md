@@ -7,9 +7,11 @@ This guide explains how to create a custom "Over-the-Air" (OTA) update artifact 
 * **Raspberry Pi Connect Account:** All devices must be linked to the same account. See this video for setup: [https://youtu.be/rvCaN1PSKY0](https://youtu.be/rvCaN1PSKY0)
 
 ## Phase 1: Creating the Artifact from Scratch
+This process turns your shell script into a compressed package that the Raspberry Pi Connect service can verify and deploy. Optional: You can skip steps 1 and 2 and download the pre-made file [aptupgrade.tar.zst](https://github.com/carolinedunn/RemoteOTA-RPiConnect/blob/main/aptupgrade.tar.zst)
 
 ### Step 1: Prepare the Files
-1. **The Script (aptupgradescript):** Create a file with your update logic. Use absolute paths for logging to ensure you can find the results later. Optionally, you can download the aptupgradescript included in this repository.
+On your primary computer (or the "admin" Pi), create a folder for this update. You need two files:
+1. **The Script (aptupgradescript):** Create a file with your update logic. Use absolute paths for logging to ensure you can find the results later. Optionally, you can download the [aptupgradescript](https://github.com/carolinedunn/RemoteOTA-RPiConnect/blob/main/aptupgradescript) included in this repository.
 ```bash
 #!/bin/sh
 export DEBIAN_FRONTEND=noninteractive
@@ -29,7 +31,7 @@ echo Upgrade complete
 exit 0 # EXIT_SUCCESS
 ```
 
-2. **The Control File (aptupgrade.yaml):** This tells the system what the script is. Note: In version 1.3.9, keep payloads at the same indentation level as artefact. Optionally, you can download the aptupgradescript.yaml included in this repository.
+2. **The Control File (aptupgrade.yaml):** This tells the system what the script is. Note: In version 1.3.9, keep payloads at the same indentation level as artefact. Optionally, you can download the [aptupgradescript.yaml](https://github.com/carolinedunn/RemoteOTA-RPiConnect/blob/main/aptupgrade.yaml) included in this repository.
 ```yaml
 artefact:
   name: aptupgrade
@@ -49,11 +51,20 @@ otamaker aptupgrade.yaml
 ### Step 3: Host the Artifact
 1. Upload aptupgrade.tar.zst to your web server (e.g., https://yourdomain.com/).
 2. Avoid Redirects: Ensure the URL you use is the final destination (e.g., use https if your site forces it).
-3. Verify Link: Run curl -I https://yourdomain.com/aptupgrade.tar.zst to ensure it returns an HTTP 200 OK.
-4. Get your Hash:
-```bash
-curl -sL https://yourdomain.com/aptupgrade.tar.zst | sha256sum
-```
+3. Verify Link: Run the following command and it should return an HTTP 200 OK.
+   ```bash
+   curl -I https://yourdomain.com/aptupgrade.tar.zst
+   ```
+4. Get your Hash: Run the following command (using your own link) and copy the long string of characters it returns:
+    ```bash
+    curl -sL https://yourdomain.com/aptupgrade.tar.zst | sha256sum
+    ```
+
+### Step 4: Register the Artifact
+1. Log in to the [Raspberry Pi Connect Dashboard](https://connect.raspberrypi.com/devices)
+2. Go to **Remote Update -> New**
+3. Enter the Name (your choice), HTTPS URL and the hash from the previous step in the SHA-256 Checksum field.
+4. Click **Create artefact**
 
 ## Phase 2: Setting Up the Pi
 1. Install the latest rpi-connect package and the new rpi-connect-ota package:
@@ -73,7 +84,7 @@ rpi-connect ota on
 2. Enter your admin password when prompted. This is the password you set up when you flashed your microSD card in Raspberry Pi Imager.
 
 ## Phase 3: Deploying to the Fleet
-1. Go to your [Raspberry Pi Connect](https://connect.raspberrypi.com/devices) page
+1. Go to your [Raspberry Pi Connect Dashboard](https://connect.raspberrypi.com/devices)
 2. Click **Deploy** next to your Pi in the dashboard.
 3. Select **Existing** and choose your Deployment artefact.
 4. Click **Deploy**.
