@@ -1,5 +1,6 @@
 # Remote OTA Updates with Raspberry Pi Connect
-This guide explains how to create a custom "Over-the-Air" (OTA) update artifact and how to prepare additional Raspberry Pi devices to receive it. This process is ideal for managing a fleet of "headless" devices (Pis without a monitor) behind firewalls or in remote locations.
+This guide walks you through the end-to-end process of creating an Over-the-Air (OTA) update artifact for Raspberry Pi Connect and applying that same artifact to additional devices in your fleet. This process can be used with other scripts to install / deploy software packages.
+
 ## Prerequisites
 
 * **Public Link Creation:** You must have a way to upload your .tar.zst file and create a public link. Options include a personal web server or Amazon S3.
