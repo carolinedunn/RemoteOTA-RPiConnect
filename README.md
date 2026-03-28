@@ -11,7 +11,7 @@ This guide walks you through the end-to-end process of creating an Over-the-Air 
 This process turns your shell script into a compressed package that the Raspberry Pi Connect service can verify and deploy. Optional: You can skip steps 1 and 2 and download the pre-made file [aptupgrade.tar.zst](https://github.com/carolinedunn/RemoteOTA-RPiConnect/blob/main/aptupgrade.tar.zst).
 
 ### Step 1: Prepare the Files
-On your primary computer (or the "admin" Pi), create a folder for this update. You need two files:
+On your Raspberry Pi, create a folder for this update. You need two files:
 1. **The Script (aptupgradescript):** Create a file with your update logic. Use absolute paths for logging to ensure you can find the results later. Optionally, you can download the [aptupgradescript](https://github.com/carolinedunn/RemoteOTA-RPiConnect/blob/main/aptupgradescript) included in this repository.
 ```bash
 #!/bin/sh
