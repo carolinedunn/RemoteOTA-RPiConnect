@@ -69,7 +69,7 @@ sudo apt update
 sudo apt install rpi-connect-lite rpi-connect-ota
 rpi-connect ota on
 ```
-2. Enter your admin password when you are prompted. This is the password you set up when you flashed your microSD card in Raspberry Pi Imager.
+2. Enter your admin password when prompted. This is the password you set up when you flashed your microSD card in Raspberry Pi Imager.
 
 ## Phase 3: Deploying to the Fleet
 1. Go to your [Raspberry Pi Connect](https://connect.raspberrypi.com/devices) page
