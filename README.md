@@ -53,13 +53,13 @@ otamaker aptupgrade.yaml
 1. Upload aptupgrade.tar.zst to your web server (e.g., https://yourdomain.com/).
 2. Avoid Redirects: Ensure the URL you use is the final destination (e.g., use https if your site forces it).
 3. Verify Link: Run the following command and it should return an HTTP 200 OK.
-   ```bash
-   curl -I https://yourdomain.com/aptupgrade.tar.zst
-   ```
+```bash
+curl -I https://yourdomain.com/aptupgrade.tar.zst
+```
 4. Get your Hash: Run the following command (using your own link) and copy the long string of characters it returns:
-    ```bash
-    curl -sL https://yourdomain.com/aptupgrade.tar.zst | sha256sum
-    ```
+```bash
+curl -sL https://yourdomain.com/aptupgrade.tar.zst | sha256sum
+```
 
 ### Step 4: Register the Artifact
 1. Log in to the [Raspberry Pi Connect Dashboard](https://connect.raspberrypi.com/devices)
@@ -74,12 +74,16 @@ For a Raspberry Pi with desktop:
 ```bash
 sudo apt update
 sudo apt install rpi-connect rpi-connect-ota
+```
+```bash
 rpi-connect ota on
 ```
 For a Raspberry Pi without a desktop (aka Lite):
 ```bash
 sudo apt update
 sudo apt install rpi-connect-lite rpi-connect-ota
+```
+```bash
 rpi-connect ota on
 ```
 2. Enter your admin password when prompted. This is the password you set up when you flashed your microSD card in Raspberry Pi Imager.
