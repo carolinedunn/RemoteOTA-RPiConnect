@@ -67,6 +67,45 @@ curl -sL https://yourdomain.com/aptupgrade.tar.zst | sha256sum
 3. Enter the Name (your choice), HTTPS URL and the hash from the previous step in the SHA-256 Checksum field.
 4. Click **Create artefact**
 
+## Unable to Host / Create a Public Link?
+
+### Option 1: Fork this Repository
+1. Create / Login to your Github account.
+2. Fork this repository.
+3. Optional: If you created your own tar.zst file, upload it to your newly created repository.
+4. Get the Permalink of file aptupgrade.tar.zst (or the .tar.zst file you just uploaded).
+5. Verify Link: Run the following command and it should return an HTTP 200 OK.
+```bash
+curl -I [your permalink]/aptupgrade.tar.zst
+```
+6. Copy the raw URL that starts with [raw.githubusercontent.com/](https://raw.githubusercontent.com/)
+7. Get your Hash: Run the following command (using your own link) and copy the long string of characters it returns:
+```bash
+curl -sL [raw-github-link]/aptupgrade.tar.zst | sha256sum
+```
+8. Complete Step 4 in the previous section.
+
+### Option 2: Use this Repository and only Register the Artifact
+This is a shortcut method if you only want to deploy the package that I have already created.
+1. Log in to the [Raspberry Pi Connect Dashboard](https://connect.raspberrypi.com/devices)
+2. Go to **Remote Update -> New**
+3. Enter the Name (your choice),
+   
+   URL: https://raw.githubusercontent.com/carolinedunn/RemoteOTA-RPiConnect/e8b378a9cfac1684c93b528c4b38c82a2d7bf979/aptupgrade.tar.zst
+   
+   SHA-256 Hash: 609bb4bc2d3ef651cc23e1057f420c059aa9f4d5b416c99fdf2760d51fef150d
+5. Click **Create artefact**
+
+I higly recommend that you verify the integrity of this file by running this command in the terminal of your Raspberry Pi:
+Verify it Yourself:
+Before you deploy, you can verify the integrity of this file by running this command in your terminal:
+```bash
+curl -sL https://raw.githubusercontent.com/carolinedunn/RemoteOTA-RPiConnect/e8b378a9cfac1684c93b528c4b38c82a2d7bf979/aptupgrade.tar.zst | sha256sum
+```
+
+Your Pi should return - 609bb4bc2d3ef651cc23e1057f420c059aa9f4d5b416c99fdf2760d51fef150d 
+
+
 ## Phase 2: Setting Up the Pi
 1. Install the latest rpi-connect package and the new rpi-connect-ota package:
 
