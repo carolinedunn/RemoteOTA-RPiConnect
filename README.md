@@ -1,6 +1,10 @@
 # Remote OTA Updates with Raspberry Pi Connect
 This guide walks you through the end-to-end process of creating an Over-the-Air (OTA) update artifact for Raspberry Pi Connect and applying that same artifact to additional devices in your fleet. This process can be used with other scripts to install / deploy software packages.
 
+<a href="https://youtu.be/MEguaAPWOsg">
+  <img src="OTA-Pi-thumb-play.jpg" width="720" alt="Remote Update Your Raspberry Pis">
+</a>
+
 ## Prerequisites
 
 * **Public Link Creation:** You must have a way to upload your .tar.zst file and create a public link. Options include a personal web server or Amazon S3. Note: Dropbox and Google Drive will not work for this requirement because they use redirects that the OTA agent cannot follow.
